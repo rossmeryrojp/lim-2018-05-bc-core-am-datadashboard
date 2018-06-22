@@ -56,11 +56,8 @@ Entrevista
 
 Utilizamos Figma
 
-![image 1](https://user-images.githubusercontent.com/39319360/41471386-1dd050c0-7079-11e8-87b9-ad4b5f13e5b0.png)
+![prototipo](https://user-images.githubusercontent.com/38537678/41785117-33fe18c6-7607-11e8-8adc-5fcf55f69a5e.png)
 
-![image 2](https://user-images.githubusercontent.com/39319360/41471396-2329c11e-7079-11e8-88e5-362318881dae.png)
-
-![image 3](https://user-images.githubusercontent.com/39319360/41471402-2804c1e8-7079-11e8-975d-824d70b5d805.png)
 
 ### Implementación de la Interfaz de Usuario (HTML/CSS/JS)
 #### index.html
