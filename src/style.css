@@ -19,7 +19,7 @@ h3 {
 }
 
 .lista {
-    outline: 1px solid red;
+    outline: 1px solid gray;
     width: 400px;
     height: 1000px;
 }
@@ -88,4 +88,10 @@ ul li:first-child a:hover {
 ul li:first-child a:active {
     background:#ffc107;
     color: #ffffff;
+}
+form { 
+    margin-left: 900px; 
+    border-radius: 50px;
+    padding: 0 0 0 40px;
+    margin-top: -40px;
 }
