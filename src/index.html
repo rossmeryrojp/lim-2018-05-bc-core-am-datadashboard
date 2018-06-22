@@ -8,11 +8,10 @@
 <body>
     
     <header>
-        <img class="logo" src="http://mqm.pe/wp-content/uploads/2017/10/Laboratoria-codigo.png" height="70px">
-        <h3>DATA DASHBOARD</h3>
+        <img class="logo" src="../img/logo.jpg">
     </header>
-    <section>
-        <select id="selector"></select>
+    <nav>
+        <select id="selector"><option value="1">Seleccione Generación</option></select>
         <ul id="menu">
             <li>
                <button id="cohort">COHORTS</a> </button>
@@ -30,13 +29,11 @@
                     <a href="#">SAO PAULO</a>
                 </li>
         </ul>
-        <button id="prueba-btn"></button>
-        <ul id="lista">
-        </ul>
-    </section>
+    </nav>
+    <div class="contlist"><ul id="lista" class="studentslist"></ul></div>
     <section>
-        <div id="user"></div>
-        <div id="progress"></div>
+            <div id="user"></div>
+            <div id="progress"></div>
     </section>
     <script src="main.js"></script>
 </body>

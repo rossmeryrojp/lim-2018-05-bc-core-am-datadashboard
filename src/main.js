@@ -1,7 +1,6 @@
 const databutton = document.getElementById('cohort'); //traigo al boton
 const select = document.getElementById('selector');
 const lista = document.getElementById('lista');
-const pruebaBtn = document.getElementById('prueba-btn');
 
 let progressUsers = [];
 
@@ -53,10 +52,10 @@ function getUsers (cohort) { //le pongo un parametro que es el selector
       if (cohort === users.signupCohort) {//cuando comparo el valor del selector con el names.signup
         array.push(users); //cuando cumple esa funcion, en el array vacio adiciona los elementos
         let li = document.createElement('li'); //almaceno en una variable las opciones q voy a crear
-        let a = document.createElement('a');
+        let a = document.createElement('a'); 
         a.innerHTML = users.name;
         a.addEventListener("click", function () {
-          document.getElementById("user").innerHTML = JSON.stringify(users);
+          document.getElementById("user").innerHTML = JSON.stringify(users);//convierte de objeto a string, lo invero del parse
           document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
         });
         li.appendChild(a); //las inserto en el html
@@ -66,3 +65,12 @@ function getUsers (cohort) { //le pongo un parametro que es el selector
   }
   getName.send();//si no se pone, no envia nada
 }
+selector.addEventListener('change',function(e){
+  if (selector.value === 'lim-2018-03-pre-core-pw') {
+      lista.innerHTML= '';
+      addUsers();
+  }else{
+      alert('Sin datos para mostrar');
+  }
+
+});
