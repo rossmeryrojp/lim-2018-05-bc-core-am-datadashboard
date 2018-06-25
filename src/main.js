@@ -27,10 +27,40 @@ function addCohorts(event) {
 }
 
 // hago el evento al selector "change", cuando escoja realiza la funcionn de la lista de users, tiene q tener parametro
-select.addEventListener('change', () => { //al selector se le adiciona el evento de escoger
+/*lista.addEventListener('change', () => { //al selector se le adiciona el evento de escoger
   getProgress();
   getUsers(select.value);//ejecuta la funcion del user con el parametro
-});
+});*/
+
+window.ComputerUsersStats = (user,progress) => {
+  usersWithStats = {}
+    stats = {}
+      percent = user.id,//indico que coja el progress del usuario q selecciono con el id identificado
+      exercises = {
+        total: 2,
+        completed: 1,
+        percent: 50
+      }
+      read = {
+        total: 2,
+        completed: 1,
+        percent: 50,
+      }
+      quizzes = {
+        total: 2,
+        completed: 1,
+        pscoreSum: 50,
+        scoreAvg: 20
+      }
+  usersWithStats.stats = stats;//propiedad de este arreglo de objetos
+  stats.percent = percent;
+  stats.exercises = exercises;
+  stats.read = read;
+  stats.quizzes = quizzes;
+  return usersWithStats;
+}
+
+ComputerUsersStats(user, progress);
 
 function getProgress () {
   const getProgressUsers = new XMLHttpRequest();
@@ -55,20 +85,24 @@ function getUsers (cohort) { //le pongo un parametro que es el selector
         let a = document.createElement('a'); 
         a.innerHTML = users.name;
         a.addEventListener("click", function () {
-          document.getElementById("user").innerHTML = JSON.stringify(users);//convierte de objeto a string, lo invero del parse
-          document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
+          //document.getElementById("user").innerHTML = JSON.stringify(users);//convierte de objeto a string, lo invero del parse
+          //document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
+          ComputerUsersStats (users, progress);
+
         });
         li.appendChild(a); //las inserto en el html
         lista.appendChild(li); //agrego todas las opciones
       }
+      
     });
   }
   getName.send();//si no se pone, no envia nada
 }
-selector.addEventListener('change',function(e){
-  if (selector.value === 'lim-2018-03-pre-core-pw') {
+select.addEventListener('change',function(e){
+  if (select.value === 'lim-2018-03-pre-core-pw') {
       lista.innerHTML= '';
-      addUsers();
+      getUsers(select.value);
+      getProgress();
   }else{
       alert('Sin datos para mostrar');
   }
