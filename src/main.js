@@ -32,17 +32,17 @@ function addCohorts(event) {
   getUsers(select.value);//ejecuta la funcion del user con el parametro
 });*/
 
-window.ComputerUsersStats = (user,progress) => {// estos mismo parametros lo recibe de la funcion declarada abajo
+window.computeUsersStats = (user,progress) => {// estos mismo parametros lo recibe de la funcion declarada abajo
   usersWithStats = []
     stats = {}
       percent = progress['intro'].percent,//indico que coja el progress del usuario q selecciono con el id identificado
       exercises = {
-        total: ComputerExercises (progress),
-        completed: ComputerCompletedExercises (progress),
-        percent: ComputerPercent (progress),
+        total: computeExercises (progress),
+        completed: computeCompletedExercises (progress),
+        percent: computePercent (progress),
       }
       read = {
-        total: 2,
+        total: computeReads (progress),
         completed: 1,
         percent: 50,
       }
@@ -60,22 +60,45 @@ window.ComputerUsersStats = (user,progress) => {// estos mismo parametros lo rec
   console.log(usersWithStats);
   return usersWithStats;
 }
-
-ComputerExercises = (progress) => {
-  let totalExercises= (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
+//Información de Exercises
+computeExercises = (progress) => {
+  let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
   return totalExercises;
 }
 
-ComputerCompletedExercises = (progress) => {
+computeCompletedExercises = (progress) => {
   exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
-  let totalExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
-  return totalExercises;
+  let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
+  console.log(progress);
+  return completedExercises;
 }
 
-ComputerPercent = (progress) => {
+computePercent = (progress) => { 
+  let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
+  exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
+  let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
+  return completedExercises/totalExercises*100;
+}
+
+// Información de Read
+computeReads = (progress) => { 
+  let parts = ((progress['intro']['units']['02-variables-and-data-types']['parts']));
+  console.log (parts);
+  let totalParts = 0;
   
 
+  
+  for (const idPart in parts) {
+    if (parts[idPart].type === 'read'){ 
+      // console.log(idPart);
+      totalParts = totalParts + 1;
+
+    }
+  }
+  console.log(totalParts);
 }
+
+
 
 
 function getProgress () {
@@ -105,7 +128,7 @@ function getUsers (cohort) { //le pongo un parametro que es el selector
           //document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
           //console.log(users);
           //console.log(progressUsers[users.id]);
-          ComputerUsersStats (users, progressUsers[users.id]);//cuando doy clik a la user se ejecuta esta función con parametros
+          computeUsersStats (users, progressUsers[users.id]);//cuando doy clik a la user se ejecuta esta función con parametros
         });
         li.appendChild(a); //las inserto en el html
         lista.appendChild(li); //agrego todas las opciones
