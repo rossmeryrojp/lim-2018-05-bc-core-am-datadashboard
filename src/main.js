@@ -32,14 +32,14 @@ function addCohorts(event) {
   getUsers(select.value);//ejecuta la funcion del user con el parametro
 });*/
 
-window.ComputerUsersStats = (user,progress) => {
-  usersWithStats = {}
+window.ComputerUsersStats = (user,progress) => {// estos mismo parametros lo recibe de la funcion declarada abajo
+  usersWithStats = []
     stats = {}
-      percent = user.id,//indico que coja el progress del usuario q selecciono con el id identificado
+      percent = progress['intro'].percent,//indico que coja el progress del usuario q selecciono con el id identificado
       exercises = {
-        total: 2,
-        completed: 1,
-        percent: 50
+        total: ComputerExercises (progress),
+        completed: ComputerCompletedExercises (progress),
+        percent: ComputerPercent (progress),
       }
       read = {
         total: 2,
@@ -52,15 +52,31 @@ window.ComputerUsersStats = (user,progress) => {
         pscoreSum: 50,
         scoreAvg: 20
       }
-  usersWithStats.stats = stats;//propiedad de este arreglo de objetos
-  stats.percent = percent;
+  usersWithStats.stats = stats;//declaro la propiedad del array
+  stats.percent = percent;// declarando la propiedad del objeto
   stats.exercises = exercises;
   stats.read = read;
   stats.quizzes = quizzes;
+  console.log(usersWithStats);
   return usersWithStats;
 }
 
-ComputerUsersStats(user, progress);
+ComputerExercises = (progress) => {
+  let totalExercises= (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
+  return totalExercises;
+}
+
+ComputerCompletedExercises = (progress) => {
+  exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
+  let totalExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
+  return totalExercises;
+}
+
+ComputerPercent = (progress) => {
+  
+
+}
+
 
 function getProgress () {
   const getProgressUsers = new XMLHttpRequest();
@@ -87,8 +103,9 @@ function getUsers (cohort) { //le pongo un parametro que es el selector
         a.addEventListener("click", function () {
           //document.getElementById("user").innerHTML = JSON.stringify(users);//convierte de objeto a string, lo invero del parse
           //document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
-          ComputerUsersStats (users, progress);
-
+          //console.log(users);
+          //console.log(progressUsers[users.id]);
+          ComputerUsersStats (users, progressUsers[users.id]);//cuando doy clik a la user se ejecuta esta función con parametros
         });
         li.appendChild(a); //las inserto en el html
         lista.appendChild(li); //agrego todas las opciones
