@@ -80,23 +80,29 @@ computePercent = (progress) => {
   return completedExercises/totalExercises*100;
 }
 
-// Información de Read
-computeReads = (progress) => { 
-  let parts = ((progress['intro']['units']['02-variables-and-data-types']['parts']));
-  console.log (parts);
-  let totalParts = 0;
-  
-
-  
-  for (const idPart in parts) {
-    if (parts[idPart].type === 'read'){ 
-      // console.log(idPart);
-      totalParts = totalParts + 1;
-
+// Información de Reads
+computeReads = (progress) => {debugger
+  let contadorReads = 0;  
+  for (let key in progress) {
+    //console.log(key);
+      for (let subkey in progress[key]){
+         if (progress[key][subkey].type === 'read') {
+                contadorReads++;
     }
   }
-  console.log(totalParts);
 }
+}
+console.log(computeReads);
+
+  //let parts = ((progress['intro']['units']['02-variables-and-data-types']['parts']));
+  //let totalParts = 0;
+  //for (const idPart in parts) {
+    //if (parts[idPart].type === 'read'){ 
+      // console.log(idPart);
+      //totalParts = totalParts + 1;
+
+  
+
 
 
 
