@@ -57,7 +57,7 @@ window.computeUsersStats = (user,progress) => {// estos mismo parametros lo reci
   stats.exercises = exercises;
   stats.read = read;
   stats.quizzes = quizzes;
-  console.log(usersWithStats);
+  //console.log(usersWithStats);
   return usersWithStats;
 }
 //Información de Exercises
@@ -69,30 +69,42 @@ computeExercises = (progress) => {
 computeCompletedExercises = (progress) => {
   exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
   let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
-  console.log(progress);
+  //console.log(progress);
   return completedExercises;
 }
 
 computePercent = (progress) => { 
+  //let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
   let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
+  //exercises = progress['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
   exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
   let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
   return completedExercises/totalExercises*100;
 }
 
 // Información de Reads
-computeReads = (progress) => {debugger
-  let contadorReads = 0;  
-  for (let key in progress) {
-    //console.log(key);
-      for (let subkey in progress[key]){
+computeReads = (progress) => {
+  contadorReads = 0;
+  //let keyofparts = progress['intro']['units'];  
+  for (let key in progress['intro']['units']){
+    unit = progress['intro']['units'][key];
+    //console.log(progress['intro']['units'][key]);
+    for (let subkey in unit) {
+      console.log(unit[subkey]);
+      if (unit[subkey].type === 'read') {
+        contadorReads++;
+    }
+  }
+  
+  console.log('resultado read' + contadorReads)
+     /* for (let subkey in keyofparts[key]){
          if (progress[key][subkey].type === 'read') {
                 contadorReads++;
     }
-  }
+  }*/
 }
-}
-console.log(computeReads);
+
+//console.log(computeReads);
 
   //let parts = ((progress['intro']['units']['02-variables-and-data-types']['parts']));
   //let totalParts = 0;
