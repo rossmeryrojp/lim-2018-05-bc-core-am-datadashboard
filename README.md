@@ -8,6 +8,7 @@
 
 *La plataforma Data Dashboard ha sido diseñada pensando en la* ***necesidad de tener un mejor entendimiento acerca de cómo va cada estudiante en su proceso de aprendizaje*** *a través de una interface amigable y ordenada.*
 
+
 ## Contenido de la plataforma 📓
 
 *A través de una investigación con los usuarios finales se definió información relevante con la que se podía interactuar cómo el porcentaje de ejercicios resueltos de cada estudiante, la cantidad de lecturas leídas y quizzes resueltos. Estos datos se pueden filtrar por alumna y ordenar de forma ascendente o descendente.*
@@ -30,7 +31,7 @@ Exposición de requerimientos por parte del usuario
 
 ![exposicion_usuario](https://user-images.githubusercontent.com/39319360/41465506-05c34cb8-7064-11e8-94e3-9ba3cc33aa01.jpg)
 
-### Sketch de la solución (prototipo de baja fidelidad)
+## Sketch de la solución (prototipo de baja fidelidad)
 
 #### 1) Flujograma 
 
@@ -44,7 +45,7 @@ Exposición de requerimientos por parte del usuario
 
 ![sketch3](https://user-images.githubusercontent.com/39319360/41475173-9fa38c20-7083-11e8-9348-064d3a5ffffc.png)
 
-### Diseño de la Interfaz de Usuario (prototipo de alta fidelidad) 🖌
+## Diseño de la Interfaz de Usuario (prototipo de alta fidelidad) 🖌
 
 *Respecto al diseño, se escogió una interface adaptada a la plataforma que ya existe en Laboratoria, debido a que la apliación web formará parte de uno más de los servicios que brinde el rol. Para este objetivo se utilizó como herramienta Figma.*
 
@@ -52,5 +53,5 @@ Exposición de requerimientos por parte del usuario
 
 
 
-## Implementación de la Interfaz de Usuario (HTML/CSS/JS)
+### Implementación de la Interfaz de Usuario (HTML/CSS/JS)
 ### index.html
