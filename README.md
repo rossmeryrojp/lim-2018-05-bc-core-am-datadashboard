@@ -1,3 +1,5 @@
+## Data Dashboard Laboratoria 👩‍💻
+
 ### Acerca de los usuarios 👫
 
 *Los usuarios son las Training Managers de Laboratoria y cualquier otra persona a la que se le asigne el rol de visualizar la información de las estudiantes.*
