@@ -6,7 +6,7 @@
 
 ### Objetivo 📌
 
-*La plataforma Data Dashboard ha sido diseñada pensando en la* ***necesidad de tener un mejor entendimiento acerca de cómo va cada estudiante en su proceso de aprendizaje.*** *a través de una interface amigable y ordenada.*
+*La plataforma Data Dashboard ha sido diseñada pensando en la* ***necesidad de tener un mejor entendimiento acerca de cómo va cada estudiante en su proceso de aprendizaje*** *a través de una interface amigable y ordenada.*
 
 ### Contenido de la plataforma 📓
 
