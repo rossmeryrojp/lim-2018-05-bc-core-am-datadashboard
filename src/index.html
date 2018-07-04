@@ -2,10 +2,41 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Data Dashboard</title>
+    <title>Laboratoria Dashboard</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <header>
+      <img src="img/logo.jpg" class="logo">
+      <form action="">
+        <input type="text" placeholder="Ingrese Nombre" required>
+        <input type="submit" value ="ok">
+      </form>
+    </header>
+          <nav>
+            <ul>
+
+              <!-- habilitar cohort navegacion -->
+              <li>
+                <a id = "cohorts" href="#">COHORTS</a>
+              </li>
+              <!-- habilitar student navegacion -->
+              <li>
+                <a id = "students" href="#">STUDENTS</a>
+            </li>
+            <!-- fin opciones nav -->
+            </ul>
+          </nav>
+          <section>
+            <div id="generation"></div>
+            <select id="select-cohorts"></select>  
+            <div class="vertical-menu1">
+              <ul id="container-user">
+              </ul>
+            </div>
+          </section>
+
     <script src="main.js"></script>
+    <script src="data.js"></script>
   </body>
 </html>
