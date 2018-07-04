@@ -54,8 +54,4 @@ Exposición de requerimientos por parte del usuario
 
 
 ### Implementación de la Interfaz de Usuario (HTML/CSS/JS)
-<<<<<<< HEAD
-#### index.html
-=======
 ### index.html
->>>>>>> gh-pages
