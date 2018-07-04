@@ -32,80 +32,6 @@ function addCohorts(event) {
   getUsers(select.value);//ejecuta la funcion del user con el parametro
 });*/
 
-window.computeUsersStats = (user,progress) => {// estos mismo parametros lo recibe de la funcion declarada abajo
-  usersWithStats = []
-    stats = {}
-      percent = progress['intro'].percent,//indico que coja el progress del usuario q selecciono con el id identificado
-      exercises = {
-        total: computeExercises (progress),
-        completed: computeCompletedExercises (progress),
-        percent: computePercent (progress),
-      }
-      read = {
-        total: computeReads (progress),
-        completed: 1,
-        percent: 50,
-      }
-      quizzes = {
-        total: 2,
-        completed: 1,
-        pscoreSum: 50,
-        scoreAvg: 20
-      }
-  usersWithStats.stats = stats;//declaro la propiedad del array
-  stats.percent = percent;// declarando la propiedad del objeto
-  stats.exercises = exercises;
-  stats.read = read;
-  stats.quizzes = quizzes;
-  console.log(usersWithStats);
-  return usersWithStats;
-}
-//Información de Exercises
-computeExercises = (progress) => {
-  let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
-  return totalExercises;
-}
-
-computeCompletedExercises = (progress) => {
-  exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
-  let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
-  console.log(progress);
-  return completedExercises;
-}
-
-computePercent = (progress) => { 
-  let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
-  exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
-  let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
-  return completedExercises/totalExercises*100;
-}
-
-// Información de Reads
-computeReads = (progress) => {debugger
-  let contadorReads = 0;  
-  for (let key in progress) {
-    //console.log(key);
-      for (let subkey in progress[key]){
-         if (progress[key][subkey].type === 'read') {
-                contadorReads++;
-    }
-  }
-}
-}
-console.log(computeReads);
-
-  //let parts = ((progress['intro']['units']['02-variables-and-data-types']['parts']));
-  //let totalParts = 0;
-  //for (const idPart in parts) {
-    //if (parts[idPart].type === 'read'){ 
-      // console.log(idPart);
-      //totalParts = totalParts + 1;
-
-  
-
-
-
-
 
 function getProgress () {
   const getProgressUsers = new XMLHttpRequest();
@@ -134,7 +60,7 @@ function getUsers (cohort) { //le pongo un parametro que es el selector
           //document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
           //console.log(users);
           //console.log(progressUsers[users.id]);
-          computeUsersStats (users, progressUsers[users.id]);//cuando doy clik a la user se ejecuta esta función con parametros
+          computeUsersStats(users, progressUsers[users.id]);//cuando doy clik a la user se ejecuta esta función con parametros
         });
         li.appendChild(a); //las inserto en el html
         lista.appendChild(li); //agrego todas las opciones
@@ -154,3 +80,77 @@ select.addEventListener('change',function(e){
   }
 
 });
+
+window.computeUsersStats = (user, progress) => {// estos mismo parametros lo recibe de la funcion declarada abajo
+  usersWithStats = []
+  stats = {}
+  percent = progress['intro'].percent,//indico que coja el progress del usuario q selecciono con el id identificado
+  exercises = {
+    total: computeExercises(progress),
+    completed: computeCompletedExercises(progress),
+    percent: computePercent(progress),
+  }
+  read = {
+    total: computeReads(progress),
+    completed: 1,
+    percent: 50,
+  }
+  quizzes = {
+    total: 2,
+    completed: 1,
+    pscoreSum: 50,
+    scoreAvg: 20
+  }
+  usersWithStats.stats = stats;//declaro la propiedad del array
+  stats.percent = percent;// declarando la propiedad del objeto
+  stats.exercises = exercises;
+  stats.read = read;
+  stats.quizzes = quizzes;
+  console.log(usersWithStats);
+  //return usersWithStats;
+
+  //Información de Exercises
+
+  function computeCompletedExercises (progress) {
+    exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
+    let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
+    console.log(progress);
+    return completedExercises;
+  }
+
+  function computeExercises (progress) {
+    //debugger
+    let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
+    return totalExercises;
+  }
+
+  function computePercent (progress) { 
+    let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
+    exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
+    let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
+    return completedExercises/totalExercises*100;
+  }
+  // Información de Reads
+  function computeReads (progress) {
+    contadorReads = 0;
+    //let keyofparts = progress['intro']['units'];  
+    for (let key in progress['intro']['units']) {
+      units = progress['intro']['units'][key]['parts'];
+      //console.log(progress['intro']['units'][key]);
+      for (let subkey in units) {
+        //console.log(subkey);
+        if (units[subkey].type === 'read') {
+          contadorReads++;
+        }
+      }
+    }
+    return contadorReads;
+  }
+
+}
+      
+  //console.log('resultado read' + contadorReads)
+     /* for (let subkey in keyofparts[key]){
+         if (progress[key][subkey].type === 'read') {
+                contadorReads++;
+                */
