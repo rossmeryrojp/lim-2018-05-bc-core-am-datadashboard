@@ -86,14 +86,14 @@ window.computeUsersStats = (user, progress) => {// estos mismo parametros lo rec
   stats = {}
   percent = progress['intro'].percent,//indico que coja el progress del usuario q selecciono con el id identificado
   exercises = {
-    total: computeExercises(progress),
-    completed: computeCompletedExercises(progress),
-    percent: computePercent(progress),
+    total: computeExercises(progress)[0],
+    completed: 2,
+    percent: 3,
   }
   read = {
-    total: computeReads(progress),
-    completed: 1,
-    percent: 50,
+    total: computeReads(progress)[0],
+    completed: computeReads(progress)[1],
+    percent: computeReads(progress)[2],
   }
   quizzes = {
     total: 2,
@@ -107,11 +107,48 @@ window.computeUsersStats = (user, progress) => {// estos mismo parametros lo rec
   stats.read = read;
   stats.quizzes = quizzes;
   console.log(usersWithStats);
+  console.log(progress);
   //return usersWithStats;
 
   //Información de Exercises
+  function computeExercises (progress) {
+    contadorExercises = 0;
+    contadorCompletedExercises = 0;
+    let arrayExercises=[];
 
-  function computeCompletedExercises (progress) {
+    for (let keyA in progress['intro']['units']) {
+      units = progress['intro']['units'][keyA]['parts'];
+      for (let subkeyA in units) {
+       if (units[subkeyA].type === 'practice'){
+        if (units[subkeyA].hasOwnProperty('exercises')){
+        object.values(units[subkeyA].exercises);
+        console.log(object.values(units[subkeyA]));
+        } 
+        //contadorExercises++; 
+        //console.log(contadorExercises);
+      }
+    }  
+    arrayExercises.push(contadorExercises);
+  return arrayExercises
+ }      
+}
+     
+
+   /* if (contadorCompletedReads===0) {
+      readsPercent = 0;
+    }
+    else {
+    percentReads = Math.round((contadorCompletedReads/contadorReads) *100);
+    //console.log(percentReads);
+    }
+    arrayReads.push(contadorReads , contadorCompletedReads, percentReads);
+    return arrayReads
+  }
+  */
+
+
+
+  /*function computeCompletedExercises (progress) {
     exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
     let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
     console.log(progress);
@@ -129,28 +166,33 @@ window.computeUsersStats = (user, progress) => {// estos mismo parametros lo rec
     exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
     let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
     return completedExercises/totalExercises*100;
-  }
+  }*/
   // Información de Reads
-  function computeReads (progress) {
+ function computeReads (progress) {
     contadorReads = 0;
-    //let keyofparts = progress['intro']['units'];  
+    contadorCompletedReads = 0;
+    let arrayReads=[];
+
     for (let key in progress['intro']['units']) {
       units = progress['intro']['units'][key]['parts'];
-      //console.log(progress['intro']['units'][key]);
       for (let subkey in units) {
         //console.log(subkey);
         if (units[subkey].type === 'read') {
           contadorReads++;
+         if (units[subkey].completed === 1) {
+           contadorCompletedReads++;
+         }  
         }
       }
     }
-    return contadorReads;
+    if (contadorCompletedReads===0) {
+      readsPercent = 0;
+    }
+    else {
+    percentReads = Math.round((contadorCompletedReads/contadorReads) *100);
+    //console.log(percentReads);
+    }
+    arrayReads.push(contadorReads , contadorCompletedReads, percentReads);
+    return arrayReads
   }
-
 }
-      
-  //console.log('resultado read' + contadorReads)
-     /* for (let subkey in keyofparts[key]){
-         if (progress[key][subkey].type === 'read') {
-                contadorReads++;
-                */
