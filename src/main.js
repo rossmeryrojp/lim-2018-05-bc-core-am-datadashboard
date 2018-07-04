@@ -33,7 +33,7 @@ function addCohorts(event) {
 });*/
 
 
-function getProgress () {
+function getProgress() {
   const getProgressUsers = new XMLHttpRequest();
   getProgressUsers.open('GET', '../data/cohorts/lim-2018-03-pre-core-pw/progress.json');
   getProgressUsers.onload = function (event) {
@@ -42,54 +42,54 @@ function getProgress () {
   getProgressUsers.send();
 }
 
-function getUsers (cohort) { //le pongo un parametro que es el selector
+function getUsers(cohort) { //le pongo un parametro que es el selector
   const getName = new XMLHttpRequest(); //creo una nueva instancia
   getName.open('GET', '../data/cohorts/lim-2018-03-pre-core-pw/users.json'); //le digo q llame al url
   getName.onload = addUsers; //agrego la funcion para mostrar la lista de users
-    function addUsers () {
+  function addUsers() {
     const names = JSON.parse(this.responseText); // me la va formatear en json
-    let array=[]; //creo array vacio para almacenar los users correspondientes al cohort
+    let array = []; //creo array vacio para almacenar los users correspondientes al cohort
     names.forEach(users => { // recorre la respuesta del cohort por cada elemento
-      if (cohort === users.signupCohort) {//cuando comparo el valor del selector con el names.signup
+      if (cohort === users.signupCohort) { //cuando comparo el valor del selector con el names.signup
         array.push(users); //cuando cumple esa funcion, en el array vacio adiciona los elementos
         let li = document.createElement('li'); //almaceno en una variable las opciones q voy a crear
-        let a = document.createElement('a'); 
+        let a = document.createElement('a');
         a.innerHTML = users.name;
         a.addEventListener("click", function () {
           //document.getElementById("user").innerHTML = JSON.stringify(users);//convierte de objeto a string, lo invero del parse
           //document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
           //console.log(users);
           //console.log(progressUsers[users.id]);
-          computeUsersStats(users, progressUsers[users.id]);//cuando doy clik a la user se ejecuta esta función con parametros
+          computeUsersStats(users, progressUsers[users.id]); //cuando doy clik a la user se ejecuta esta función con parametros
         });
         li.appendChild(a); //las inserto en el html
         lista.appendChild(li); //agrego todas las opciones
       }
-      
+
     });
   }
-  getName.send();//si no se pone, no envia nada
+  getName.send(); //si no se pone, no envia nada
 }
-select.addEventListener('change',function(e){
+select.addEventListener('change', function (e) {
   if (select.value === 'lim-2018-03-pre-core-pw') {
-      lista.innerHTML= '';
-      getUsers(select.value);
-      getProgress();
-  }else{
-      alert('Sin datos para mostrar');
+    lista.innerHTML = '';
+    getUsers(select.value);
+    getProgress();
+  } else {
+    alert('Sin datos para mostrar');
   }
 
 });
 
-window.computeUsersStats = (user, progress) => {// estos mismo parametros lo recibe de la funcion declarada abajo
+window.computeUsersStats = (user, progress) => { // estos mismo parametros lo recibe de la funcion declarada abajo
   usersWithStats = []
   stats = {}
-  percent = progress['intro'].percent,//indico que coja el progress del usuario q selecciono con el id identificado
-  exercises = {
-    total: computeExercises(progress)[0],
-    completed: 2,
-    percent: 3,
-  }
+  percent = progress['intro'].percent, //indico que coja el progress del usuario q selecciono con el id identificado
+    exercises = {
+      total: computeExercises(progress)[0],
+      completed: 2,
+      percent: 3,
+    }
   read = {
     total: computeReads(progress)[0],
     completed: computeReads(progress)[1],
@@ -101,8 +101,8 @@ window.computeUsersStats = (user, progress) => {// estos mismo parametros lo rec
     pscoreSum: 50,
     scoreAvg: 20
   }
-  usersWithStats.stats = stats;//declaro la propiedad del array
-  stats.percent = percent;// declarando la propiedad del objeto
+  usersWithStats.stats = stats; //declaro la propiedad del array
+  stats.percent = percent; // declarando la propiedad del objeto
   stats.exercises = exercises;
   stats.read = read;
   stats.quizzes = quizzes;
@@ -111,67 +111,34 @@ window.computeUsersStats = (user, progress) => {// estos mismo parametros lo rec
   //return usersWithStats;
 
   //Información de Exercises
-  function computeExercises (progress) {
+  function computeExercises(progress) {
     contadorExercises = 0;
     contadorCompletedExercises = 0;
-    let arrayExercises=[];
+    let arrayExercises = [];
 
     for (let keyA in progress['intro']['units']) {
       units = progress['intro']['units'][keyA]['parts'];
       for (let subkeyA in units) {
-       if (units[subkeyA].type === 'practice'){
-        if (units[subkeyA].hasOwnProperty('exercises')){
-        object.values(units[subkeyA].exercises);
-        console.log(object.values(units[subkeyA]));
-        } 
-        //contadorExercises++; 
-        //console.log(contadorExercises);
+        if (units[subkeyA].type === 'practice') {
+          if (units[subkeyA].hasOwnProperty('exercises')) {
+            object.values(units[subkeyA].exercises);
+            console.log(object.values(units[subkeyA]));
+          } else {
+            return 0,
+          }
+          //contadorExercises++; 
+          //console.log(contadorExercises);
+        }
       }
-    }  
-    arrayExercises.push(contadorExercises);
-  return arrayExercises
- }      
-}
-     
-
-   /* if (contadorCompletedReads===0) {
-      readsPercent = 0;
+      arrayExercises.push(contadorExercises);
+      return arrayExercises
     }
-    else {
-    percentReads = Math.round((contadorCompletedReads/contadorReads) *100);
-    //console.log(percentReads);
-    }
-    arrayReads.push(contadorReads , contadorCompletedReads, percentReads);
-    return arrayReads
   }
-  */
-
-
-
-  /*function computeCompletedExercises (progress) {
-    exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
-    let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
-    console.log(progress);
-    return completedExercises;
-  }
-
-  function computeExercises (progress) {
-    //debugger
-    let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
-    return totalExercises;
-  }
-
-  function computePercent (progress) { 
-    let totalExercises = (Object.keys((progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises']))).length;
-    exercises = progress['intro']['units']['02-variables-and-data-types']['parts']['06-exercises']['exercises'];
-    let completedExercises = exercises['01-coin-convert']['completed'] + exercises['02-restaurant-bill']['completed'];
-    return completedExercises/totalExercises*100;
-  }*/
   // Información de Reads
- function computeReads (progress) {
+  function computeReads(progress) {
     contadorReads = 0;
     contadorCompletedReads = 0;
-    let arrayReads=[];
+    let arrayReads = [];
 
     for (let key in progress['intro']['units']) {
       units = progress['intro']['units'][key]['parts'];
@@ -179,20 +146,19 @@ window.computeUsersStats = (user, progress) => {// estos mismo parametros lo rec
         //console.log(subkey);
         if (units[subkey].type === 'read') {
           contadorReads++;
-         if (units[subkey].completed === 1) {
-           contadorCompletedReads++;
-         }  
+          if (units[subkey].completed === 1) {
+            contadorCompletedReads++;
+          }
         }
       }
     }
-    if (contadorCompletedReads===0) {
+    if (contadorCompletedReads === 0) {
       readsPercent = 0;
+    } else {
+      percentReads = Math.round((contadorCompletedReads / contadorReads) * 100);
+      //console.log(percentReads);
     }
-    else {
-    percentReads = Math.round((contadorCompletedReads/contadorReads) *100);
-    //console.log(percentReads);
-    }
-    arrayReads.push(contadorReads , contadorCompletedReads, percentReads);
+    arrayReads.push(contadorReads, contadorCompletedReads, percentReads);
     return arrayReads
   }
 }
