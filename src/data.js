@@ -4,7 +4,7 @@ window.computeUsersStats = (users, progress, courses) => {
         const UsuarioNuevo = NuevoUsuarioStats(usuario, progress[usuario.id], courses);
         listUsuarioComputerUser.push(UsuarioNuevo);
     });
-    return listUsuarioComputerUser;    
+    return listUsuarioComputerUser;
 }
 const NuevoUsuarioStats = (usuario, progress, courses) => {
     let nameUser = usuario.name;
@@ -32,35 +32,35 @@ const computerExercises = (progress, courses) => {
         courses.map((curso) => {
             const valorUnits = Object.keys(progress[curso].units);
             valorUnits.map((nombreUnits) => {
-                const valorParts = Object.keys(progress[curso].units[nombreUnits].parts);     
+                const valorParts = Object.keys(progress[curso].units[nombreUnits].parts);
                 valorParts.map((nombreParts) => {
-                    const valorExcercises = progress[curso].units[nombreUnits].parts[nombreParts];            
-    if (valorExcercises.hasOwnProperty('exercises')) {
-        const nombreExercises = valorExcercises.exercises;
-        cont += Object.keys(nombreExercises).length;
-        const valorCompletado = Object.keys(valorExcercises.exercises);
-        valorCompletado.map((nombreExercises) => {
-            const valorCompleted = progress[curso].units[nombreUnits].parts[nombreParts].exercises[nombreExercises].completed;
-    if (valorCompleted == 1) {
-        contComplet += valorCompleted;
-    }
-    });
-    }
-    });
-    });
-    });
+                    const valorExcercises = progress[curso].units[nombreUnits].parts[nombreParts];
+                    if (valorExcercises.hasOwnProperty('exercises')) {
+                        const nombreExercises = valorExcercises.exercises;
+                        cont += Object.keys(nombreExercises).length;
+                        const valorCompletado = Object.keys(valorExcercises.exercises);
+                        valorCompletado.map((nombreExercises) => {
+                            const valorCompleted = progress[curso].units[nombreUnits].parts[nombreParts].exercises[nombreExercises].completed;
+                            if (valorCompleted == 1) {
+                                contComplet += valorCompleted;
+                            }
+                        });
+                    }
+                });
+            });
+        });
     } catch (error) {
-    let exercises = {
-    total: 0,
-    completed: 0,
-    percent: 0,
+        let exercises = {
+            total: 0,
+            completed: 0,
+            percent: 0,
+        }
+        return exercises;
     }
-    return exercises;
-    }
     let exercises = {
-    total: cont,
-    completed: contComplet,
-    percent: (contComplet / cont) * 100,
+        total: cont,
+        completed: contComplet,
+        percent: (contComplet / cont) * 100,
     }
     return exercises;
 };
@@ -68,28 +68,28 @@ const computerUsersRead = (progress, courses) => {
     let cont = 0;
     let contComplet = 0;
     try {
-    courses.map((curso) => {
-    const valorUnits = Object.keys(progress[curso].units);
-    valorUnits.map((nombreUnits) => {
-    const valorParts = Object.keys(progress[curso].units[nombreUnits].parts);
-    valorParts.map((nombreParts) => {
-    const valorType = progress[curso].units[nombreUnits].parts[nombreParts];
-    if (valorType.type == "read") {
-    cont++;
-    }
-    if (valorType.type == "read" && valorType.completed == 1) {
-    contComplet++;
-    }
-    });
-    });
-    });
+        courses.map((curso) => {
+            const valorUnits = Object.keys(progress[curso].units);
+            valorUnits.map((nombreUnits) => {
+                const valorParts = Object.keys(progress[curso].units[nombreUnits].parts);
+                valorParts.map((nombreParts) => {
+                    const valorType = progress[curso].units[nombreUnits].parts[nombreParts];
+                    if (valorType.type == "read") {
+                        cont++;
+                    }
+                    if (valorType.type == "read" && valorType.completed == 1) {
+                        contComplet++;
+                    }
+                });
+            });
+        });
     } catch (error) {
-    let reads = {
-    total: 0,
-    completed: 0,
-    percent: 0,
-    }
-    return reads;
+        let reads = {
+            total: 0,
+            completed: 0,
+            percent: 0,
+        }
+        return reads;
     }
 
     let reads = {
@@ -104,40 +104,40 @@ const computerUserQuizz = (progress, courses) => {
     let contComplet = 0;
     let contscoreAvg = 0
     try {
-    courses.map((curso) => {
-    const valorUnits = Object.keys(progress[curso].units);
-    valorUnits.map((nombreUnits) => {
-    const valorParts = Object.keys(progress[curso].units[nombreUnits].parts);
-    valorParts.map((nombreParts) => {
-    const valorType = progress[curso].units[nombreUnits].parts[nombreParts];
-    if (valorType.type == "quiz") {
-    cont++;
-    }
-    if (valorType.type == "quiz" && valorType.completed == 1) {
-    contComplet++;
-    }
-    if (valorType.type == "quiz" && valorType.completed == 1 && valorType.score) {
-    contscoreAvg += valorType.score;
-    }
-    });
-    });
-    });
+        courses.map((curso) => {
+            const valorUnits = Object.keys(progress[curso].units);
+            valorUnits.map((nombreUnits) => {
+                const valorParts = Object.keys(progress[curso].units[nombreUnits].parts);
+                valorParts.map((nombreParts) => {
+                    const valorType = progress[curso].units[nombreUnits].parts[nombreParts];
+                    if (valorType.type == "quiz") {
+                        cont++;
+                    }
+                    if (valorType.type == "quiz" && valorType.completed == 1) {
+                        contComplet++;
+                    }
+                    if (valorType.type == "quiz" && valorType.completed == 1 && valorType.score) {
+                        contscoreAvg += valorType.score;
+                    }
+                });
+            });
+        });
     } catch (error) {
-    let quizzes = {
-    total: 0,
-    completed: 0,
-    percent: 0,
-    scoreSum: 0,
-    scoreAvg: 0,
+        let quizzes = {
+            total: 0,
+            completed: 0,
+            percent: 0,
+            scoreSum: 0,
+            scoreAvg: 0,
+        }
+        return quizzes;
     }
-    return quizzes;
-    }
     let quizzes = {
-    total: cont,
-    completed: contComplet,
-    percent: Math.round((contComplet / cont) * 100),
-    scoreSum: contscoreAvg,
-    scoreAvg: Math.round(contscoreAvg / contComplet),
+        total: cont,
+        completed: contComplet,
+        percent: Math.round((contComplet / cont) * 100),
+        scoreSum: contscoreAvg,
+        scoreAvg: Math.round(contscoreAvg / contComplet),
     }
     return quizzes;
 }
