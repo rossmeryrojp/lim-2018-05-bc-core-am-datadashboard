@@ -2,60 +2,44 @@ header {
     width: 70px 700px;
     height: 70px;
     background: #ffc107;
-    border: 1px solid #CCC;
-}
+  }
 
 h3 {
-    margin: 5% 5% 5% 1%;
-    padding: 0% 5% 2% 1%;
+    border: #000000;
     display: inline;
+    margin: 5% 5% 5%;
 }
 
 .logo {
     border: 1px #A6A6A6;
     width: 250px;
     height: 70px;
-    margin-left: 50px;
 }
-
-.lista {
-    outline: 1px solid gray;
-    width: 400px;
-    height: 1000px;
-}
-.contlist {
-    width: 450px;
-    padding: 400px;
-    margin-top: -800px;
-}
-
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
 nav{
     display: inline-block;
     outline: 1px solid gray;
-    width: 375px;
     height: 400px;
-    background: #ffffff;
+    background: #7c7979;
 }
-
-#studentslist {
-    margin-top: 120px;
-    margin-left: 200px;
-}
-
-ul {
+.menu {
     /* outline: 1px solid yellow; */
     list-style: none;
-    width: 400px;
+    margin: 0;
+    padding: 0;
+    width: 260px;
     line-height: 34px;
 }
 
-li  {
-    /* outline: 1px solid red; */
-    background: #ffffff; 
+li {
+    width: 30%;
+    padding: 25px 25px 25px 25px;
+    border: 2px solid rgb(27, 27, 27) ;
+    margin-left: 300px;
+    height: 100%;
+
 }
 
 a {
@@ -67,31 +51,58 @@ a {
 }
 
 a:hover {
-    background:#f2f2f2;
-    transition-duration: 0.4s;
+    background:#f2f2f2 ;
 }
 
 a:active{
     background:  #ffffff;
-    color: #333333;
+    color: #ffc107;
 }
 
 ul li:first-child a {
-    color: #333333;
+    background:#ffc107;
+    color: #ffffff;
 }
-
 ul li:first-child a:hover {
     background:#ffc107;
-    color: #333333;
+    color: #000;
 }
-
 ul li:first-child a:active {
     background:#ffc107;
     color: #ffffff;
 }
-form { 
-    margin-left: 900px; 
+div{
+    display: inline-block;
+}
+section{
+    float: right;
+    width: 73%;
+    background-color: #ffffff;
+    height: 28%;
+    margin-top: 200%;
+}
+#generation
+    /* padding: 9px;
+    }*/
+#select-cohorts{
+    margin-top: 120px;
+    margin-right: 200px; 
+}
+form{
+    margin-left: 900px;
     border-radius: 50px;
     padding: 0 0 0 40px;
     margin-top: -40px;
+} 
+
+.container {
+  background: rgb(229, 226, 226);
+  background-size: 100%;
+  background-repeat: repeat;
+  width: 100%;
+  height: 1000%;
+}
+
+.data {
+    margin-top: -300px;
 }

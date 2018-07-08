@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body> 
+    <header>
+        <img class="logo" src="../img/logo.jpg">
+        <form action="">
+                 <input type="text" placeholder="Ingrese Nombre" required>
+                 <input type="submit" value="Ok">
+        </form>
+    </header>
+    <nav>
+        <select id="selector"><option value="1">Seleccione Generación</option></select>
+        <ul id="menu">
+            <li>
+               <a id="cohort">COHORTS</a> 
+            </li>
+            <li>
+                <a href="#">LIMA</a>
+            </li>
+            <li>
+                <a href="#">CD MEXICO</a>
+            </li>
+            <li>
+                    <a href="#">SANTIAGO</a>
+                </li>
+            <li>
+                    <a href="#">SAO PAULO</a>
+                </li>
+        </ul>
+    </nav>
+    <div class="contlist"><ul id="lista" class="studentslist"></ul></div>
+    <section>
+            <div id="user"></div>
+            <div id="progress"></div>
+    </section>
+    <script src="main.js"></script>
+    <script src="data.js"></script>
+</body>
+</html>

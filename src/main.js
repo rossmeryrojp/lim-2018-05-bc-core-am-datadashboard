@@ -1,164 +1,63 @@
-const databutton = document.getElementById('cohort'); //traigo al boton
-const select = document.getElementById('selector');
-const lista = document.getElementById('lista');
+const urlUser = '../data/cohorts/lim-2018-03-pre-core-pw/users.json';
+const urlCohorts = '../data/cohorts.json';
+const urlProgress = '../data/cohorts/lim-2018-03-pre-core-pw/progress.json';
+const select = document.getElementById('select-cohorts');
+const listUsers = document.getElementById('users');
 
-let progressUsers = [];
-
-databutton.addEventListener('click', function (e) { //evento del boton para get list
-  e.preventDefault(); //para que no recargue
-  getList();
-});
-
-function getList() {
-  const getCohort = new XMLHttpRequest(); //creo una nueva instancia
-  getCohort.open('GET', '../data/cohorts.json'); //le digo q llame al url
-  getCohort.onload = addCohorts; // para que entienda la data porque esta en objetos
-  getCohort.send();
+const getJSON = (url, callback) => {
+  const request = new XMLHttpRequest();
+  request.open('GET', url);
+  request.onload = callback;
+  request.onerror = handleError;
+  request.send();
 }
-
-function addCohorts(event) {
-  const data = JSON.parse(event.target.responseText); // me la va formatear en json, en vez de this pongo event.target para traer el array de la respuesta
-  data.forEach(cohort => { // recorre la respuesta del cohort por cada elemento
-    let option = document.createElement('option'); //almaceno en una variable las opciones q voy a crear
-    option.innerHTML = cohort.id; //las inserto en el html
-    option.value = cohort.id; //inserta el id de esa data
-    select.appendChild(option); //agrego todas las opciones
-  });
+const handleError = () => {
+  console.log('Se ha presentado un error');
 }
-
-// hago el evento al selector "change", cuando escoja realiza la funcionn de la lista de users, tiene q tener parametro
-/*lista.addEventListener('change', () => { //al selector se le adiciona el evento de escoger
-  getProgress();
-  getUsers(select.value);//ejecuta la funcion del user con el parametro
-});*/
-
-
-function getProgress() {
-  const getProgressUsers = new XMLHttpRequest();
-  getProgressUsers.open('GET', '../data/cohorts/lim-2018-03-pre-core-pw/progress.json');
-  getProgressUsers.onload = function (event) {
-    progressUsers = JSON.parse(event.target.responseText);
-  }
-  getProgressUsers.send();
-}
-
-function getUsers(cohort) { //le pongo un parametro que es el selector
-  const getName = new XMLHttpRequest(); //creo una nueva instancia
-  getName.open('GET', '../data/cohorts/lim-2018-03-pre-core-pw/users.json'); //le digo q llame al url
-  getName.onload = addUsers; //agrego la funcion para mostrar la lista de users
-  function addUsers() {
-    const names = JSON.parse(this.responseText); // me la va formatear en json
-    let array = []; //creo array vacio para almacenar los users correspondientes al cohort
-    names.forEach(users => { // recorre la respuesta del cohort por cada elemento
-      if (cohort === users.signupCohort) { //cuando comparo el valor del selector con el names.signup
-        array.push(users); //cuando cumple esa funcion, en el array vacio adiciona los elementos
-        let li = document.createElement('li'); //almaceno en una variable las opciones q voy a crear
-        let a = document.createElement('a');
-        a.innerHTML = users.name;
-        a.addEventListener("click", function () {
-          //document.getElementById("user").innerHTML = JSON.stringify(users);//convierte de objeto a string, lo invero del parse
-          //document.getElementById("progress").innerHTML = JSON.stringify(progressUsers[users.id]);
-          //console.log(users);
-          //console.log(progressUsers[users.id]);
-          computeUsersStats(users, progressUsers[users.id]); //cuando doy clik a la user se ejecuta esta función con parametros
-        });
-        li.appendChild(a); //las inserto en el html
-        lista.appendChild(li); //agrego todas las opciones
-      }
-
+const addUserProgress = () => {
+  const courses = ["intro"]
+  const users = JSON.parse(event.target.responseText);
+  const addCohorts = (event) => {
+    const cohorts = JSON.parse(event.target.responseText);
+    cohorts.map((dataCohorts) => {
+      const listCor = document.createElement('option');
+      listCor.value = dataCohorts.id;
+      listCor.innerHTML = dataCohorts.id;
+      select.appendChild(listCor);
     });
   }
-  getName.send(); //si no se pone, no envia nada
+  getJSON(urlCohorts, addCohorts);
+  const progress = () => {
+    const progress = JSON.parse(event.target.responseText);
+    let usersStats = computeUsersStats(users, progress, courses);
+  }
+  getJSON(urlProgress, progress);
+  getJSON(urlCohorts, courses);
 }
-select.addEventListener('change', function (e) {
+getJSON(urlUser, addUserProgress);
+
+const addUsers = (usuario) => {
+  usuario.map((valorusuario) => {
+    let listUser = document.createElement('li');
+    listUser.innerHTML = valorusuario.name + '<p>' +
+      'Percent : ' + valorusuario.stats.percent + '%' + '<p>' +
+      'Total exercises : ' + valorusuario.stats.exercises.total + '<p>' +
+      'Total complete exercises: ' + valorusuario.stats.exercises.completed + '<p>' +
+      'Percent exercises  : ' + valorusuario.stats.exercises.percent + '%' + '<p>' +
+      'Total readings : ' + valorusuario.stats.reads.total + '<p>' +
+      'Total full readings: ' + valorusuario.stats.reads.completed + '<p>' +
+      'Percent readings  : ' + valorusuario.stats.reads.percent + '%' + '<p>' +
+      'Total quizzes : ' + valorusuario.stats.quizzes.total + '<p>' +
+      'Total complete quizzes: ' + valorusuario.stats.quizzes.completed + '<p>' +
+      'Percent quizzes : ' + valorusuario.stats.quizzes.percent + '%' + '<p>';
+    listUsers.appendChild(listUser);
+  });
+}
+select.addEventListener('change', e => {
+  e.preventDefault();
   if (select.value === 'lim-2018-03-pre-core-pw') {
-    lista.innerHTML = '';
-    getUsers(select.value);
-    getProgress();
+    addUsers(listUsuarioComputerUser)
   } else {
     alert('Sin datos para mostrar');
   }
-
 });
-
-window.computeUsersStats = (user, progress) => { // estos mismo parametros lo recibe de la funcion declarada abajo
-  usersWithStats = []
-  stats = {}
-  percent = progress['intro'].percent, //indico que coja el progress del usuario q selecciono con el id identificado
-    exercises = {
-      total: computeExercises(progress)[0],
-      completed: 2,
-      percent: 3,
-    }
-  read = {
-    total: computeReads(progress)[0],
-    completed: computeReads(progress)[1],
-    percent: computeReads(progress)[2],
-  }
-  quizzes = {
-    total: 2,
-    completed: 1,
-    pscoreSum: 50,
-    scoreAvg: 20
-  }
-  usersWithStats.stats = stats; //declaro la propiedad del array
-  stats.percent = percent; // declarando la propiedad del objeto
-  stats.exercises = exercises;
-  stats.read = read;
-  stats.quizzes = quizzes;
-  console.log(usersWithStats);
-  console.log(progress);
-  //return usersWithStats;
-
-  //Información de Exercises
-  function computeExercises(progress) {
-    contadorExercises = 0;
-    contadorCompletedExercises = 0;
-    let arrayExercises = [];
-
-    for (let keyA in progress['intro']['units']) {
-      units = progress['intro']['units'][keyA]['parts'];
-      for (let subkeyA in units) {
-        if (units[subkeyA].type === 'practice') {
-          if (units[subkeyA].hasOwnProperty('exercises')) {
-            object.values(units[subkeyA].exercises);
-            console.log(object.values(units[subkeyA]));
-          } else {
-            return 0,
-          }
-          //contadorExercises++; 
-          //console.log(contadorExercises);
-        }
-      }
-      arrayExercises.push(contadorExercises);
-      return arrayExercises
-    }
-  }
-  // Información de Reads
-  function computeReads(progress) {
-    contadorReads = 0;
-    contadorCompletedReads = 0;
-    let arrayReads = [];
-
-    for (let key in progress['intro']['units']) {
-      units = progress['intro']['units'][key]['parts'];
-      for (let subkey in units) {
-        //console.log(subkey);
-        if (units[subkey].type === 'read') {
-          contadorReads++;
-          if (units[subkey].completed === 1) {
-            contadorCompletedReads++;
-          }
-        }
-      }
-    }
-    if (contadorCompletedReads === 0) {
-      readsPercent = 0;
-    } else {
-      percentReads = Math.round((contadorCompletedReads / contadorReads) * 100);
-      //console.log(percentReads);
-    }
-    arrayReads.push(contadorReads, contadorCompletedReads, percentReads);
-    return arrayReads
-  }
-}
