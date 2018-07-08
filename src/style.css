@@ -22,7 +22,7 @@ nav{
     display: inline-block;
     outline: 1px solid gray;
     height: 400px;
-    background: #7c7979;
+    background: white;
 }
 .menu {
     /* outline: 1px solid yellow; */
@@ -31,6 +31,7 @@ nav{
     padding: 0;
     width: 260px;
     line-height: 34px;
+    border: #f2f2f2;
 }
 
 li {
@@ -84,9 +85,9 @@ section{
 #generation
     /* padding: 9px;
     }*/
-#select-cohorts{
-    margin-top: 120px;
-    margin-right: 200px; 
+#selector{
+    border-radius: 30px;
+    margin-top: 0px;
 }
 form{
     margin-left: 900px;

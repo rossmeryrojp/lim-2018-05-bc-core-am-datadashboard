@@ -1,7 +1,7 @@
 const urlUser = '../data/cohorts/lim-2018-03-pre-core-pw/users.json';
 const urlCohorts = '../data/cohorts.json';
 const urlProgress = '../data/cohorts/lim-2018-03-pre-core-pw/progress.json';
-const select = document.getElementById('select-cohorts');
+const select = document.getElementById('selector');
 const listUsers = document.getElementById('users');
 
 const getJSON = (url, callback) => {
