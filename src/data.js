@@ -1,4 +1,5 @@
 let listUsuarioComputerUser = [];
+
 window.computeUsersStats = (users, progress, courses) => {
   users.map(usuario => {
     const UsuarioNuevo = NuevoUsuarioStats(usuario, progress[usuario.id], courses);
@@ -141,3 +142,15 @@ const computerUserQuizz = (progress, courses) => {
   }
   return quizzes;
 }
+
+
+//Buscar estudiantes por nombre
+
+window.filterUsers = (users, search) => {debugger
+
+  users.forEach(element => {
+    //return userFiltered;
+  });
+  
+}
+

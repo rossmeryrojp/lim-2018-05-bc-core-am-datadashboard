@@ -1,8 +1,9 @@
 const urlUser = '../data/cohorts/lim-2018-03-pre-core-pw/users.json';
 const urlCohorts = '../data/cohorts.json';
 const urlProgress = '../data/cohorts/lim-2018-03-pre-core-pw/progress.json';
-const select = document.getElementById('selector');
+const select = document.getElementById('select');
 const listUsers = document.getElementById('users');
+const search = document.getElementById('search');
 
 const getJSON = (url, callback) => {
   const request = new XMLHttpRequest();
@@ -61,3 +62,10 @@ select.addEventListener('change', e => {
     alert('Sin datos para mostrar');
   }
 });
+
+document.getElementById('ok').addEventListener('click', () => {
+  let search = document.getElementById('search').value;
+  filterUsers(listUsuarioComputerUser, search.toLowerCase());
+  //listUsuarioComputerUser.value = filter;
+});
+

@@ -8,10 +8,6 @@
   <body>
     <header>
       <img src="../img/logo.jpg" class="logo">
-      <form action="">
-        <input type="text" placeholder="Ingrese Nombre" required>
-        <input type="submit" value ="ok">
-      </form>
     </header>
         <div class= "container">
           <nav>
@@ -31,13 +27,16 @@
             <!-- fin opciones nav -->
             </ul>
           </nav>
-          <select id="selector"><option value="1">Seleccione Generación</option></select> 
+          <select id="select"><option value="1">Seleccione Generación</option></select> 
+          <form action="">
+            <input id= "search" type="text" placeholder="Ingrese Nombre" required>
+            <input id= "ok" type="submit" value ="Ok">
+          </form>
             <div class="data"> 
                 <ul id="users">
                 </ul>
             </div>
             </div>
-
     <script src="main.js"></script>
     <script src="data.js"></script>
   </body>

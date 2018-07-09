@@ -13,6 +13,8 @@
 
 *A través de una investigación con los usuarios finales se definió información relevante con la que se podía interactuar cómo el porcentaje de ejercicios resueltos de cada estudiante, la cantidad de lecturas leídas y quizzes resueltos. Estos datos se pueden filtrar por alumna y ordenar de forma ascendente o descendente.*
 
+*Los descubrimos mediante: la exposición de requerimientos del usuario, la entrevista y el READme.md del poyecto.*
+
 *Es importante recalcar que la información podrá visualizarce previamente se haya ingresado con usuario y contraseña corporativa.*
 
 Entrevista
