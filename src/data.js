@@ -7,6 +7,7 @@ window.computeUsersStats = (users, progress, courses) => {
   });
   return listUsuarioComputerUser;
 }
+
 const NuevoUsuarioStats = (usuario, progress, courses) => {
   let nameUser = usuario.name;
   let usersWithStats = {}
@@ -19,6 +20,7 @@ const NuevoUsuarioStats = (usuario, progress, courses) => {
   usersWithStats.name = nameUser;
   return usersWithStats;
 }
+
 const computerUserPercent = (progress, courses) => {
   try {
     return progress[courses].percent;
@@ -26,6 +28,7 @@ const computerUserPercent = (progress, courses) => {
     return 0;
   }
 }
+
 const computerExercises = (progress, courses) => {
   let cont = 0;
   let contComplet = 0;
@@ -65,6 +68,7 @@ const computerExercises = (progress, courses) => {
   }
   return exercises;
 };
+
 const computerUsersRead = (progress, courses) => {
   let cont = 0;
   let contComplet = 0;
@@ -100,6 +104,7 @@ const computerUsersRead = (progress, courses) => {
   }
   return reads;
 }
+
 const computerUserQuizz = (progress, courses) => {
   let cont = 0;
   let contComplet = 0;
@@ -143,14 +148,41 @@ const computerUserQuizz = (progress, courses) => {
   return quizzes;
 }
 
-
+const sortUsers = (usersStat, orderBy, orderDirection) => {
+  function func (userStat) {
+    switch (orderBy) {
+      case "name":
+        return userStat.name.toLowerCase();
+      case "total-percent":
+        return userStat.percent;
+      case "exercises-percent":
+        return userStat.stats.exercises.percent;
+      case "quizzes-percent":
+        return userStat.stats.quizzes.percent;
+      case "quizzes-avg":
+        return userStat.stats.quizzes.scoreAvg;
+      case "read-percent":
+        return userStat.stats.reads.percent;
+      default:
+        return userStat.name;
+    }
+  }
+  result = usersStat.sort((userStat1, userStat2) => {
+    const a = func(userStat1), b = func(userStat2);
+    return (a < b) ? -1 : ((a > b) ? 1 : 0);
+  });
+  if (orderDirection === "DESC") result.reverse();
+  console.log(result);
+}
 //Buscar estudiantes por nombre
 
-window.filterUsers = (users, search) => {debugger
-
-  users.forEach(element => {
-    //return userFiltered;
+window.filterUsers = (users, search) => {//debugger
+  let result = [];
+  users.forEach(user => {
+    const name = user.name.toLowerCase();
+    const lowerSearch = search.toLowerCase();
+    if (name.includes(lowerSearch))
+      result.push(user);
   });
-  
+  console.log(result);
 }
-
