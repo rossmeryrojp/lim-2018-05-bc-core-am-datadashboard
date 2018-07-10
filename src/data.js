@@ -148,6 +148,8 @@ const computerUserQuizz = (progress, courses) => {
   return quizzes;
 }
 
+//Ordena la lista
+
 const sortUsers = (usersStat, orderBy, orderDirection) => {
   function func (userStat) {
     switch (orderBy) {
@@ -173,10 +175,11 @@ const sortUsers = (usersStat, orderBy, orderDirection) => {
   });
   if (orderDirection === "DESC") result.reverse();
   console.log(result);
+  return result
 }
 //Buscar estudiantes por nombre
 
-window.filterUsers = (users, search) => {//debugger
+window.filterUsers = (users, search) => {
   let result = [];
   users.forEach(user => {
     const name = user.name.toLowerCase();
@@ -185,4 +188,13 @@ window.filterUsers = (users, search) => {//debugger
       result.push(user);
   });
   console.log(result);
+  // addUsers(result);
+  return result;
+}
+
+window.processCohortData = (options) => {
+  let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, options.cohort);
+  let estudiantesOrdenadas = sortUsers(estudiantes, options.orderBy, options.orderDirection);
+  let estudiantesFiltradas = filterUsers(estudiantesOrdenadas, option.search);
+  return estudiantesFiltradas;
 }

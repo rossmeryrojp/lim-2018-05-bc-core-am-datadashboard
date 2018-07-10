@@ -27,7 +27,21 @@
             <!-- fin opciones nav -->
             </ul>
           </nav>
-          <select id="select"><option value="1">Seleccione Generación</option></select> 
+          <select id="select"><option value="1" selected disabled>Seleccione Generación</option></select> 
+          <select id="filters">
+            <option value="" selected disabled>Buscar por</option>
+            <option value="0">Lista ASC</option>
+            <option value="1">Lista DESC</option>
+            <option value="2">% Completitud total ASC</option>
+            <option value="3">% Completitud total DESC</option>
+            <option value="4">% Ejercicios completados ASC</option>
+            <option value="5">% Ejercicios completados DESC</option>
+            <option value="6">% Quizzes completados ASC</option>
+            <option value="7">% Quizzes completados DESC</option>
+            <option value="8">% Lecturas completadas ASC</option>
+            <option value="9">Score de quizzes ASC</option>
+            <option value="10">Score de quizzes DESC</option>
+          </select>
           <form action="">
             <input id= "search" type="text" placeholder="Ingrese Nombre" required>
             <input id= "ok" type="submit" value ="Ok">

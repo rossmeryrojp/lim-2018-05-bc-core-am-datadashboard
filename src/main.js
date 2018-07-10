@@ -4,6 +4,18 @@ const urlProgress = '../data/cohorts/lim-2018-03-pre-core-pw/progress.json';
 const select = document.getElementById('select');
 const listUsers = document.getElementById('users');
 const search = document.getElementById('search');
+const filter = document.getElementById('filters');
+
+const option = {
+  cohort : null,
+  cohortData: {
+    users : [],
+    progress : {},
+  },
+  orderBy:'name',
+  orderDirection : 'ASC',
+  search: ''
+}
 
 const getJSON = (url, callback) => {
   const request = new XMLHttpRequest();
@@ -18,6 +30,8 @@ const handleError = () => {
 const addUserProgress = () => {
   const courses = ["intro"]
   const users = JSON.parse(event.target.responseText);
+  option.cohortData.users = users;
+  option.cohort = courses;
   const addCohorts = (event) => {
     const cohorts = JSON.parse(event.target.responseText);
     cohorts.map((dataCohorts) => {
@@ -30,7 +44,8 @@ const addUserProgress = () => {
   getJSON(urlCohorts, addCohorts);
   const progress = () => {
     const progress = JSON.parse(event.target.responseText);
-    let usersStats = computeUsersStats(users, progress, courses);
+    option.cohortData.progress = progress;
+    let usersStats = processCohortData(option);
   }
   getJSON(urlProgress, progress);
   getJSON(urlCohorts, courses);
@@ -54,18 +69,27 @@ const addUsers = (usuario) => {
     listUsers.appendChild(listUser);
   });
 }
+// Selección de Cohort
 select.addEventListener('change', e => {
   e.preventDefault();
+  //users.innerHTML = '';
   if (select.value === 'lim-2018-03-pre-core-pw') {
+    console.log()
     addUsers(listUsuarioComputerUser)
   } else {
     alert('Sin datos para mostrar');
   }
 });
 
-document.getElementById('ok').addEventListener('click', () => {
+//Buscar en input
+document.getElementById('ok').addEventListener('click', (e) => {
+  e.preventDefault();
+  users.innerHTML = '';
   let search = document.getElementById('search').value;
-  filterUsers(listUsuarioComputerUser, search.toLowerCase());
+  option.search = search;
+  const resultadoFinal = processCohortData(option);
+  console.log(resultadoFinal)
+  
   //listUsuarioComputerUser.value = filter;
 });
 
